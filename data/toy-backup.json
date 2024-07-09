@@ -1,0 +1,50 @@
+[
+    {
+        "_id":"t101",
+        "name": "Toy1",
+        "price": 100,
+        "labels":["Doll","On wheels","Box game","Art","Baby","Puzzle","Outdoor","Battery Powered"],
+        "createdAt": 1720546528554,
+        "inStock": true
+    },
+    {
+        "_id":"t102",
+        "name": "Toy2",
+        "price": 200,
+        "labels":["Outdoor","Battery Powered"],
+        "createdAt": 1720546528554,
+        "inStock": true
+    },
+    {
+        "_id":"t103",
+        "name": "Toy3",
+        "price": 150,
+        "labels":["Doll","Box game","Baby","Puzzle","Battery Powered"],
+        "createdAt": 1720546528554,
+        "inStock": true
+    },
+    {
+        "_id":"t104",
+        "name": "Toy4",
+        "price": 300,
+        "labels":["Doll","On wheels","Box game","Art","Baby"],
+        "createdAt": 1720546528554,
+        "inStock": true
+    },
+    {
+        "_id":"t105",
+        "name": "Toy5",
+        "price": 500,
+        "labels":["Doll","On wheels","Outdoor","Battery Powered"],
+        "createdAt": 1720546528554,
+        "inStock": true
+    },
+    {
+        "_id":"t106",
+        "name": "Toy6",
+        "price": 70,
+        "labels":["Box game","Art","Baby","Puzzle","Outdoor","Battery Powered"],
+        "createdAt": 1720546528554,
+        "inStock": true
+    }
+]
