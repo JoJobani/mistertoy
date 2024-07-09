@@ -1,50 +1,101 @@
 [
     {
-        "_id":"t101",
+        "_id": "t101",
         "name": "Toy1",
         "price": 100,
-        "labels":["Doll","On wheels","Box game","Art","Baby","Puzzle","Outdoor","Battery Powered"],
+        "labels": [
+            "Doll",
+            "On wheels",
+            "Box game",
+            "Art",
+            "Baby",
+            "Puzzle",
+            "Outdoor",
+            "Battery Powered"
+        ],
         "createdAt": 1720546528554,
         "inStock": true
     },
     {
-        "_id":"t102",
+        "_id": "t102",
         "name": "Toy2",
         "price": 200,
-        "labels":["Outdoor","Battery Powered"],
+        "labels": [
+            "Outdoor",
+            "Battery Powered"
+        ],
         "createdAt": 1720546528554,
         "inStock": true
     },
     {
-        "_id":"t103",
+        "_id": "t103",
         "name": "Toy3",
         "price": 150,
-        "labels":["Doll","Box game","Baby","Puzzle","Battery Powered"],
+        "labels": [
+            "Doll",
+            "Box game",
+            "Baby",
+            "Puzzle",
+            "Battery Powered"
+        ],
         "createdAt": 1720546528554,
         "inStock": true
     },
     {
-        "_id":"t104",
+        "_id": "t104",
         "name": "Toy4",
         "price": 300,
-        "labels":["Doll","On wheels","Box game","Art","Baby"],
+        "labels": [
+            "Doll",
+            "On wheels",
+            "Box game",
+            "Art",
+            "Baby"
+        ],
         "createdAt": 1720546528554,
         "inStock": true
     },
     {
-        "_id":"t105",
+        "_id": "t105",
         "name": "Toy5",
         "price": 500,
-        "labels":["Doll","On wheels","Outdoor","Battery Powered"],
+        "labels": [
+            "Doll",
+            "On wheels",
+            "Outdoor",
+            "Battery Powered"
+        ],
         "createdAt": 1720546528554,
         "inStock": true
     },
     {
-        "_id":"t106",
+        "_id": "t106",
         "name": "Toy6",
         "price": 70,
-        "labels":["Box game","Art","Baby","Puzzle","Outdoor","Battery Powered"],
+        "labels": [
+            "Box game",
+            "Art",
+            "Baby",
+            "Puzzle",
+            "Outdoor",
+            "Battery Powered"
+        ],
         "createdAt": 1720546528554,
         "inStock": true
+    },
+    {
+        "createdAt": 1720548944509,
+        "labels": [
+            "Box game",
+            "Art",
+            "Baby",
+            "Puzzle",
+            "Outdoor",
+            "Battery Powered"
+        ],
+        "inStock": false,
+        "_id": "hUfWn",
+        "name": "Toy6",
+        "price": 70
     }
 ]

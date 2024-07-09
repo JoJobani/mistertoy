@@ -58,9 +58,13 @@ app.get('/api/toy/:toyId', (req, res) => {
 
 // toy CREATE
 app.post('/api/toy', (req, res) => {
+    const { name, price, labels } = req.body
     const toy = {
-        name: req.body.name,
-        price: +req.body.price,
+        name: name || '',
+        price: price || 100,
+        createdAt: Date.now(),
+        labels: labels || [],
+        inStock: true
     }
     toyService.save(toy)
         .then((savedtoy) => {
@@ -75,11 +79,7 @@ app.post('/api/toy', (req, res) => {
 
 // toy UPDATE
 app.put('/api/toy', (req, res) => {
-    const toy = {
-        _id: req.body._id,
-        name: req.body.name,
-        price: +req.body.price,
-    }
+    const toy = req.body
     toyService.save(toy)
         .then((savedtoy) => {
             res.send(savedtoy)
