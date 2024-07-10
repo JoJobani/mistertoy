@@ -5,35 +5,32 @@ import cors from 'cors'
 
 import { toyService } from './services/toy.service.js'
 
-const PORT = 3030
-
 const app = express()
 
-const corsOptions = {
-    origin: [
-        'http://127.0.0.1:3000',
-        'http://localhost:3000',
-        'http://127.0.0.1:5173',
-        'http://localhost:5173',
-    ],
-    credentials: true
+//App config
+app.use(cookieParser()) //req.cookies
+app.use(express.json()) //req.body
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('public'))
+} else {
+    const corsOptions = {
+        origin: [
+            'http://127.0.0.1:3000',
+            'http://localhost:3000',
+            'http://localhost:5173',
+            'http://127.0.0.1:5173',
+        ],
+        credentials: true,
+    }
+    app.use(cors(corsOptions))
 }
-app.use(cors(corsOptions))
 
-// Express Config:
-app.use(express.static('public'))
-app.use(cookieParser())
-app.use(express.json())
-
-//REST API for toys
-
+// **************** Toys API ****************:
 //Toy list
 app.get('/api/toy', (req, res) => {
-    const filterBy = {
-        txt: req.query.txt || '',
-        maxPrice: +req.query.maxPrice || 0,
-    }
-    toyService.query(filterBy)
+    const { filterBy = {}, sortBy = {} } = req.query
+    toyService.query(filterBy, sortBy)
         .then((toys) => {
             res.send(toys)
         })
@@ -60,11 +57,9 @@ app.get('/api/toy/:toyId', (req, res) => {
 app.post('/api/toy', (req, res) => {
     const { name, price, labels } = req.body
     const toy = {
-        name: name || '',
-        price: price || 100,
-        createdAt: Date.now(),
-        labels: labels || [],
-        inStock: true
+        name,
+        price: +price,
+        labels
     }
     toyService.save(toy)
         .then((savedtoy) => {
@@ -79,7 +74,13 @@ app.post('/api/toy', (req, res) => {
 
 // toy UPDATE
 app.put('/api/toy', (req, res) => {
-    const toy = req.body
+    const { name, price, _id, labels } = req.body
+    const toy = {
+        _id,
+        name,
+        price: +price,
+        labels
+    }
     toyService.save(toy)
         .then((savedtoy) => {
             res.send(savedtoy)
@@ -103,10 +104,12 @@ app.delete('/api/toy/:toyId', (req, res) => {
         })
 })
 
+//Fallback
 app.get('/**', (req, res) => {
     res.sendFile(path.resolve('public/index.html'))
 })
 
-app.listen(PORT, () =>
-    console.log(`Server listening on port http://127.0.0.1:${PORT}/`)
+const port = 3030
+app.listen(port, () =>
+    console.log(`Server listening on port http://127.0.0.1:${port}/`)
 )
