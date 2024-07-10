@@ -8,23 +8,21 @@ import { toyService } from './services/toy.service.js'
 const app = express()
 
 //App config
-app.use(cookieParser()) //req.cookies
-app.use(express.json()) //req.body
-
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('public'))
-} else {
-    const corsOptions = {
-        origin: [
-            'http://127.0.0.1:3000',
-            'http://localhost:3000',
-            'http://localhost:5173',
-            'http://127.0.0.1:5173',
-        ],
-        credentials: true,
-    }
-    app.use(cors(corsOptions))
+const corsOptions = {
+    origin: [
+        'http://127.0.0.1:3000',
+        'http://localhost:3000',
+        'http://127.0.0.1:5173',
+        'http://localhost:5173',
+    ],
+    credentials: true
 }
+app.use(cors(corsOptions))
+
+// Express Config:
+app.use(express.static('public'))
+app.use(cookieParser())
+app.use(express.json())
 
 // **************** Toys API ****************:
 //Toy list
