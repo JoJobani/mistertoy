@@ -22,7 +22,7 @@ async function query(filterBy = {}, sortBy = {}) {
             query.name = { $regex: filterBy.txt, $options: 'i' }
         }
         if (filterBy.maxPrice) {
-            query.price = { $lte: filterBy.maxPrice }
+            query.price = { $lte: +filterBy.maxPrice }
         }
         if (filterBy.inStock) {
             query.inStock = JSON.parse(filterBy.inStock)
@@ -32,12 +32,13 @@ async function query(filterBy = {}, sortBy = {}) {
         }
         //Apply sort
         let sort = {}
-        if (sortBy.type) {
-            const sortDir = sortBy.desc === '1' ? 1 : -1
-            if (sortBy.type === 'name') {
+        if (sortBy.sortBy) {
+            const type = sortBy.sortBy
+            const sortDir = sortBy.desc === 'true' ? 1 : -1
+            if (type === 'name') {
                 sort = { name: sortDir }
-            } else if (sortBy.type === 'price' || sortBy.type === 'createdAt') {
-                sort = { [sortBy.type]: sortDir }
+            } else if (type === 'price' || type === 'createdAt') {
+                sort = { [type]: sortDir }
             }
         }
         //Query Mongo
@@ -54,7 +55,6 @@ async function getById(toyId) {
     try {
         const collection = await dbService.getCollection('toy')
         const toy = await collection.findOne({ _id: ObjectId.createFromHexString(toyId) })
-        // toy.createdAt = toy._id.getTimeStamp()
         return toy
     } catch (err) {
         logger.error(`while finding toy ${toyId}`, err)
@@ -76,6 +76,7 @@ async function remove(toyId) {
 async function add(toy) {
     try {
         const collection = await dbService.getCollection('toy')
+        toy.createdAt = Date.now()
         await collection.insertOne(toy)
         return toy
     } catch (err) {
