@@ -54,10 +54,10 @@ async function getById(toyId) {
     try {
         const collection = await dbService.getCollection('toy')
         const toy = await collection.findOne({ _id: ObjectId.createFromHexString(toyId) })
-        toy.createdAt = toy._id.getTimeStamp()
+        // toy.createdAt = toy._id.getTimeStamp()
         return toy
     } catch (err) {
-        logger.error(`while finding car ${toyId}`, err)
+        logger.error(`while finding toy ${toyId}`, err)
         throw err
     }
 }

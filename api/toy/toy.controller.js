@@ -8,7 +8,7 @@ export async function getToys(req, res) {
         res.json(toys)
     } catch (err) {
         logger.error('Failed to get toys', err)
-        res.status(500).send({ err: 'Failed to get cars' })
+        res.status(500).send({ err: 'Failed to get toys' })
     }
 }
 
