@@ -37,11 +37,16 @@ if (process.env.NODE_ENV === 'production') {
 import { authRoutes } from './api/auth/auth.routes.js'
 import { userRoutes } from './api/user/user.routes.js'
 import { toyRoutes } from './api/toy/toy.routes.js'
+import { reviewRoutes } from './api/review/review.routes.js'
+import { setupAsyncLocalStorage } from './middlewares/setupAls.middleware.js'
 
 //Routes
+app.all('*', setupAsyncLocalStorage)
+
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/toy', toyRoutes)
+app.use('/api/review', reviewRoutes)
 
 //Fallback
 app.get('/**', (req, res) => {
@@ -50,5 +55,5 @@ app.get('/**', (req, res) => {
 
 const port = process.env.PORT || 3030
 app.listen(port, () =>
-    console.log(`Server listening on port http://127.0.0.1:${port}/`)
+    console.log(`Server running on port ${port}/`)
 )
