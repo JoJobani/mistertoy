@@ -1,25 +1,29 @@
+import http from 'http'
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import path, { dirname } from 'path'
-import { fileURLToPath } from 'url'
+import path from 'path'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
+import { authRoutes } from './api/auth/auth.routes.js'
+import { userRoutes } from './api/user/user.routes.js'
+import { toyRoutes } from './api/toy/toy.routes.js'
+import { reviewRoutes } from './api/review/review.routes.js'
+import { setupSocketAPI } from './services/socket.service.js'
+import { setupAsyncLocalStorage } from './middlewares/setupAls.middleware.js'
 import { logger } from './services/logger.service.js'
+
 logger.info('server.js loaded...')
 
 const app = express()
+const server = http.createServer(app)
 
 // Express Config:
-app.use(express.static('public'))
 app.use(cookieParser())
 app.use(express.json())
 
 //App config
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.resolve(__dirname, 'public')))
+    app.use(express.static(path.resolve('public')))
 } else {
     const corsOptions = {
         origin: [
@@ -34,12 +38,6 @@ if (process.env.NODE_ENV === 'production') {
     app.use(cors(corsOptions))
 }
 
-import { authRoutes } from './api/auth/auth.routes.js'
-import { userRoutes } from './api/user/user.routes.js'
-import { toyRoutes } from './api/toy/toy.routes.js'
-import { reviewRoutes } from './api/review/review.routes.js'
-import { setupAsyncLocalStorage } from './middlewares/setupAls.middleware.js'
-
 //Routes
 app.all('*', setupAsyncLocalStorage)
 
@@ -48,12 +46,14 @@ app.use('/api/user', userRoutes)
 app.use('/api/toy', toyRoutes)
 app.use('/api/review', reviewRoutes)
 
+setupSocketAPI(server)
+
 //Fallback
 app.get('/**', (req, res) => {
     res.sendFile(path.resolve('public/index.html'))
 })
 
 const port = process.env.PORT || 3030
-app.listen(port, () =>
+server.listen(port, () =>
     console.log(`Server running on port ${port}`)
 )
