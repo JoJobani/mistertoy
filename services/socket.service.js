@@ -23,6 +23,9 @@ export function setupSocketAPI(http) {
             socket.join(topic)
             socket.myTopic = topic
         })
+        socket.on('user-typing', ({ user, isTyping }) => {
+            socket.to(socket.myTopic).emit('user-typing', { user, isTyping })
+        })
         socket.on('chat-send-msg', msg => {
             logger.info(`New chat msg from socket [id: ${socket.id}], emitting to topic ${socket.myTopic}`)
             // emits to all sockets:
