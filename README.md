@@ -1,5 +1,14 @@
 A small project of a toy store built using React.
-Including toy index, user management, map features, and more...
+Including toy index, user management, and more...
 
-Frontend was already built and loaded into the public folder here, for frontend code see the frontend repo:
+This is the backend code of the code with the frontend packed in the "public" dir.
+
+Map in the "About" section may not work because the google API key was revoked.
+
+# Frontend source code:
+
 https://github.com/JoJobani/mistertoy-frontend
+
+# Project preview link on render:
+
+https://mistertoy-backend-ae1l.onrender.com
